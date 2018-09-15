@@ -7,6 +7,7 @@ TextureImporter:
     21300004: pcWizardArmBent
     21300006: pcWizard 1_3
     21300008: pcWizardJumpPad
+    21300010: Skull
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -188,13 +189,33 @@ TextureImporter:
         width: 34
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 22f8f46f65d431d4da5f6fa3e29c6fce
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 108
+        width: 22
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e6dfa1612e93054db80fb2adcd4ba16
       vertices: []
       indices: 
       edges: []

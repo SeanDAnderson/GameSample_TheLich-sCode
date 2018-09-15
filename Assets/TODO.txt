@@ -1,0 +1,13 @@
+TO DO on The Lich's Code
+
+URGENT
+Increase Spawner Limit
+
+NOMINAL
+Pause on Victory unpauses (the toggle doesn't check for pause)
+Correct Death Emission for Spawners (uses Seeker color/size)
+Add Attack & Death sounds
+
+IF TIME
+Injured Arm Color
+Slight Slide Toward Edges

@@ -14,23 +14,20 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
     #region
     private bool isActive = false;
 
-    [Header("Spawning")]
-    [SerializeField] public static int seekerCount = 0;
-    [SerializeField] public static int seekerMax = 20;
-
     [Space]
     [Header("Targeting")]
     [SerializeField] protected Vector2 targetLocation = Vector2.zero;
-    //[SerializeField] protected Vector2 targetLocationOffset;
 
     [Space]
     [Header("Health & Damage")]
-    [SerializeField] protected float health = 2;
-    [SerializeField] protected float healthMax = 2;
+    [SerializeField] protected float health = 1;
+    [SerializeField] protected float healthMax = 1;
     [SerializeField] protected float damage = 1;
     [SerializeField] protected GameObject deathEmission;
+    [SerializeField] protected bool isInvulnerable = false;
 
     //IVulnerable Properties
+    #region
     public float Health
     {
         get
@@ -64,6 +61,7 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
             damage = value;
         }
     }
+    #endregion
 
     [Space]
     [Header("Movement & Physics")]
@@ -73,6 +71,7 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
     [SerializeField] protected float speedMin = 0f;
     [SerializeField] protected float speedOffset = 5;
     [SerializeField] protected bool skitter = true;
+    [SerializeField] protected float targetScatter = 2;
     [SerializeField] protected float skitterInterval = 2f;
     [SerializeField] protected float skitterTimer;
     [SerializeField] protected float skitterStop = .5f;
@@ -82,6 +81,7 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
     protected Vector2 location;
 
     //ISpeedMod Properties
+    #region
     public float Speed
     {
         get
@@ -127,11 +127,11 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
         }
     }
     #endregion
+    #endregion
 
     //Runtime Initializations
     private void OnEnable()
     {
-        //UpdateOffset();
         health = healthMax * ControllerGame.DifficultySetting();
         speed = speed + Random.Range(0, speedOffset);
         skitterTimer = skitterInterval;
@@ -161,6 +161,8 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
         
         
     }
+
+   
 
     //When the Seeker collides with another physics object, if that object has the Player tag it injures the target and destroys itself.
     //Uses IVulnerable mechanics
@@ -219,7 +221,10 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
     private void UpdateLocation()
     {
         location = transform.position;
-        targetLocation = SeekingUtilities.Scatter(ControllerPlayer.PlayerLocation, 2, 2);
+        if (targetScatter > 0)
+        {
+            targetLocation = SeekingUtilities.Scatter(ControllerPlayer.PlayerLocation, targetScatter, targetScatter);
+        }
     }
 
     //UpdateSkitter
@@ -232,26 +237,30 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
     //When skitterStopTimer hits zero (or below) the movment resumes and skitterTimer counts down again.
     private bool UpdateSkitter()
     {
-        if (skitterTimer > 0)
+        if (skitter)
         {
-            if (skitterStopTimer > 0)
+            if (skitterTimer > 0)
             {
-                skitterStopTimer -= Time.deltaTime;
-                return false;
+                if (skitterStopTimer > 0)
+                {
+                    skitterStopTimer -= Time.deltaTime;
+                    return false;
+                }
+                else
+                {
+                    skitterTimer -= Time.deltaTime;
+                }
             }
             else
             {
-                skitterTimer -= Time.deltaTime;
+                skitterTimer = skitterInterval;
+                skitterStopTimer = skitterStop;
+                UpdateLocation();
             }
-        }
-        else
-        {
-            skitterTimer = skitterInterval;
-            skitterStopTimer = skitterStop;
-            //UpdateOffset();
-            UpdateLocation();
+
         }
 
+        UpdateLocation();
         return true;
     }
 
@@ -272,15 +281,21 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
 
     public void Injure(float amount)
     {
-        DamageUtilities.Injure(this, amount);
+        if (!isInvulnerable)
+        {
+            DamageUtilities.Injure(this, amount);
+        }
     }
 
     public void Kill()
     {
-        Destroy(gameObject);
-        if (deathEmission != null)
+        if (!isInvulnerable)
         {
-            Instantiate(deathEmission, transform.position, transform.rotation);
+            Destroy(gameObject);
+            if (deathEmission != null)
+            {
+                Instantiate(deathEmission, transform.position, transform.rotation);
+            }
         }
     }
     #endregion

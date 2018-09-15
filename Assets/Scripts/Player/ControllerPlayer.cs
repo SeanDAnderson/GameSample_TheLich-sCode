@@ -19,6 +19,7 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
     [SerializeField] public float damageDefault = 1;
     [SerializeField] private GameObject deathEmission;
     [SerializeField] private bool isInvulnerable = false;
+    [SerializeField] protected bool wasInjured = false;
     public static float PlayerDamage = 1;
     //Basic Magic Power
     [SerializeField] protected GameObject magicBullet;
@@ -72,6 +73,7 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
     //Levitate Power
     [SerializeField] protected bool powerLevitate = false;
     [SerializeField] protected bool levitateIsLevitating = false;
+    [SerializeField] protected GameObject levitationEffect;
     //Multi-Jump Power
     [SerializeField] protected bool powerMultiJump = false;
     [SerializeField] protected float multiJumpCount;
@@ -181,7 +183,7 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
         capsule = GetComponent<CapsuleCollider2D>();
         InitalizeValues();
 
-        Physics2D.IgnoreLayerCollision(8, 11);
+        
     }
 	
 	//Update functionality is broken up into smaller methods
@@ -272,17 +274,18 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
     //If the capsul collider is colliding with ground then isGrounded becomes true.
     private void UpdateGroundCheck()
     {
-        onGround = capsule.IsTouchingLayers(LayerMask.GetMask("Ground"));
-    }
-    /*
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
+        if ((capsule.IsTouchingLayers(LayerMask.GetMask("Ground"))) || (capsule.IsTouchingLayers(LayerMask.GetMask("Mob"))) || capsule.IsTouchingLayers(LayerMask.GetMask("Ghost")))
         {
             onGround = true;
         }
+        else
+        {
+            onGround = false;
+        }
+
     }
-    */
+
+    
     //UpdateJump
     //The Jumping mechanics including the Multi-Jump, Jump-Jet and Levitate powers.
     //The basic mechanic is that on the first update after the player presses jump or up on the Y axis the character will jump if they are on the ground.
@@ -363,10 +366,12 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
             {
                 ControllerInput.X = 0;
                 body2D.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                levitationEffect.SetActive(true);
             }
             else
             {
                 body2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+                levitationEffect.SetActive(false);
             }
 
         }
@@ -476,9 +481,12 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
 
     public void Injure(float amount)
     {
-        if (!isInvulnerable)
+        if ((!isInvulnerable) && (!wasInjured))
         {
             DamageUtilities.Injure(this, amount);
+            wasInjured = true;
+            sprite.color = Color.red;
+            StartCoroutine(InjuryReset());
         }
     }
 
@@ -487,6 +495,13 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
         if (!isInvulnerable){ 
         isDead = true;
         }
+    }
+
+    IEnumerator InjuryReset()
+    {
+        yield return new WaitForSeconds(.5f);
+        wasInjured = false;
+        sprite.color = Color.white;
     }
     #endregion
 }

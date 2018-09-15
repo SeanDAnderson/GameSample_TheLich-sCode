@@ -30,7 +30,7 @@ public class HealthBar : MonoBehaviour {
 
             for (float i = health; i>0; i--)
             {
-                healthString = healthString + "|";
+                healthString = healthString + "[] ";
             }
 
             Healthbar.text = healthString;

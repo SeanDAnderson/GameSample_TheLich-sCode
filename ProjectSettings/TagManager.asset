@@ -19,9 +19,9 @@ TagManager:
   - Player
   - Ground
   - Mob
-  - PlayerMissile
+  - PlayerTransparent
   - Background
-  - 
+  - Ghost
   - 
   - 
   - 

@@ -75,6 +75,21 @@ public class ControllerGame : MonoBehaviour {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void Start()
+    {
+        //Collision Igores
+        //Player & PlayerMissile
+        Physics2D.IgnoreLayerCollision(8, 11);
+        //PlayerMissile & Player Missile
+        Physics2D.IgnoreLayerCollision(11, 11);
+        //Ghosts & Ground
+        Physics2D.IgnoreLayerCollision(9, 13);
+
+
+
+
+    }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         levelCurrent = scene.buildIndex;

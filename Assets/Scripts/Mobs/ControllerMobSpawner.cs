@@ -16,8 +16,8 @@ public class ControllerMobSpawner : MonoBehaviour, IVulnerable, ISpeedMod {
     private bool isActive = false;
 
     [Header("Health & Damage")]
-    [SerializeField] protected float health = 15;
-    [SerializeField] protected float healthMax = 15;
+    [SerializeField] protected float health = 10;
+    [SerializeField] protected float healthMax = 10;
     [SerializeField] protected float damage = 1;
     [SerializeField] protected float attackTimer = 1f;
     [SerializeField] protected bool isIsolated = false;
