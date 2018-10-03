@@ -193,7 +193,7 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
         UpdateDeathCheck();
 
         //Player update functions only run if the game is not paused
-        if ((ControllerGame.IsPaused == false) && (isDead == false))
+        if (ControllerGame.IsPlay)
         {
             //Syncronizing Velocity
             velocity = body2D.velocity;

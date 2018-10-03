@@ -132,7 +132,7 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
     //Runtime Initializations
     private void OnEnable()
     {
-        health = healthMax * ControllerGame.DifficultySetting();
+        health = healthMax;
         speed = speed + Random.Range(0, speedOffset);
         skitterTimer = skitterInterval;
         skitterStopTimer = 0f;
@@ -191,17 +191,6 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
                 velocity = SeekingUtilities.CalculateVelocity(gameObject, targetLocation, speed);
 
             }
-
-            //Deprecated targting logic 
-            //Will be removed on next code sweep
-            /*if ((location.x - targetLocation.x >= -1) && (location.x - targetLocation.x <= 1))
-                {
-                    velocity.x *= Mathf.Pow(location.x - targetLocation.x, 2);
-                }
-                if ((location.y - targetLocation.y >= -1) && (location.y - targetLocation.y <= 1))
-                {
-                    velocity.y *= Mathf.Pow(location.y - targetLocation.y, 2);
-                }*/
 
             //A lerp is used to smooth turning near the target
             body2D.velocity = Vector2.Lerp(body2D.velocity, velocity, .1f);

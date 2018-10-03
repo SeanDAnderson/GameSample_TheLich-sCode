@@ -231,11 +231,13 @@ public class ControllerPlayerArm : MonoBehaviour {
         }
 
         transform.rotation = Quaternion.Euler(0, 0, armAngle);
-        
+
         #endregion
 
 
-
+        //Color Matching
+        //Makes sure the arm is the same color as the parent
+        spriteRenderer.color = parentSpriteRenderer.color;
 
 
     }

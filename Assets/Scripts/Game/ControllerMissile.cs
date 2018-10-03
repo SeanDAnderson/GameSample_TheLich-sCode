@@ -49,7 +49,7 @@ public class ControllerMissile : MonoBehaviour {
         //Setting damage to player damage if usePlayerDamage is true
         if (usePlayerDamage == true)
         {
-            effectAmount = ControllerPlayer.PlayerDamage;
+            effectAmount = ControllerPlayer.PlayerDamage / ControllerGame.DifficultySetting();
         }
 
     }

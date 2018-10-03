@@ -42,9 +42,16 @@ public class ControllerMob : MonoBehaviour {
     //GameObject    spawner     The object calling the method, attempting to spawn the Seeker.
     //RETURNS
     //bool                      Used to inform the spawning object if the spawn attempt was successful.
-    public static bool AddSeeker(GameObject spawn, GameObject spawner)
+    public static bool AddSeeker(GameObject spawn, GameObject spawner, float spawnCount)
     {
-        if ((CurrentSeekers < MaxSeekers) && (CurrentBugs < MaxBugs))
+        if (spawnCount >= 0)
+        {
+            Instantiate(spawn, spawner.transform.position, spawner.transform.rotation);
+            CurrentBugs++;
+            CurrentSeekers++;
+            return true;
+        }
+        else if ((CurrentSeekers < MaxSeekers) && (CurrentBugs < MaxBugs))
         {
             Instantiate(spawn, spawner.transform.position, spawner.transform.rotation);
             CurrentBugs++;

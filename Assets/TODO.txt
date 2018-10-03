@@ -1,13 +1,22 @@
 TO DO on The Lich's Code
 
-URGENT
-Increase Spawner Limit
+PRIORITY
+Add Attack & Death sounds
+Finish East Level
 
 NOMINAL
-Pause on Victory unpauses (the toggle doesn't check for pause)
-Correct Death Emission for Spawners (uses Seeker color/size)
-Add Attack & Death sounds
+UI Improvement
 
 IF TIME
-Injured Arm Color
 Slight Slide Toward Edges
+Volume Control UI Does Not Synch (each slider starts at 50)
+
+COMPLETED
+Increase Spawner Limit (! add a per-spawner minimum to avoid 'empty on activation' spawners)
+Fix 'head bumping' slowdown when levitating under a block
+Correct Death Emission for Spawners (uses Seeker color/size)
+Pause on Victory unpauses (the toggle doesn't check for pause)
+Injured Arm Color
+
+Discarded
+Rewrite Difficulty code to allow in-game changing. (Requires Pause System rewrite, not worth it for small feature).

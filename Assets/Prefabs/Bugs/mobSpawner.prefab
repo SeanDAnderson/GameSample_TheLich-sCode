@@ -103,11 +103,11 @@ MonoBehaviour:
   damage: 1
   attackTimer: 1
   isIsolated: 0
-  colorDefault: {r: 1, g: 1, b: 1, a: 1}
+  colorDefault: {r: 0.40768832, g: 0.509434, b: 0.24750803, a: 1}
   isolationColor: {r: 1, g: 0, b: 0, a: 1}
   isolationTransform: {fileID: 4126151530912346}
   isolationTimerMax: 10
-  deathEmission: {fileID: 1802117386902240, guid: 56906593b3c42dc43bd834adaede4d81,
+  deathEmission: {fileID: 1663019460168048, guid: c854f376b8d1ac141adebb348b374d1f,
     type: 2}
   speed: 5
   speedDefault: 5
@@ -119,6 +119,7 @@ MonoBehaviour:
   spawnTimer: 0
   spawnSpeed: 50
   canSpawn: 1
+  minimumSpawns: 20
 --- !u!212 &212310960463579182
 SpriteRenderer:
   m_ObjectHideFlags: 1

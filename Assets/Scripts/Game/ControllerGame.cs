@@ -13,28 +13,74 @@ public class ControllerGame : MonoBehaviour {
     #region
 
     public enum Difficulty { VeryEasy, Easy, Medium, Hard, Impossible }
+    public enum GameState { Start, Play, Pause, LevelEnd, Death }
 
     [Header("Game State")]
     [SerializeField] protected int levelCurrent = 0;
-    [SerializeField] protected static bool isPaused = false;
-    [SerializeField] protected static bool isLevelExit = false;
-    [SerializeField] protected static bool isPlayerDead = false;
     [SerializeField] protected Difficulty difficulty = Difficulty.Medium;
+    [SerializeField] protected GameObject controllerLevelExit;
     private static bool est = false;
     public static Difficulty CurrentDifficulty {set; get; }
+    private static GameState state = GameState.Start;
+    private static bool buildExists = true;
+    
+
+    [Header("Options")]
+    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected bool audioEnabled = true;
+    [SerializeField] [Range(0, 1)] protected float audioVolume = .5f;
+    [SerializeField] protected bool musiceEnabled = true;
+    [SerializeField] [Range(0, 1)] protected float musicVolume = 1f;
+    [SerializeField] protected bool soundFXEnabled = true;
+    [SerializeField] [Range(0, 1)] protected float soundFXVolume = 1f;
 
 
     public static bool IsPaused
     {
-        get { return isPaused; }
+        get {
+            if (state == GameState.Pause)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+                }
     }
-    public static bool IsLevelExit
+    public static bool IsPlay
     {
-        get { return isLevelExit; }
+        get
+        {
+            if (state == GameState.Play)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
     public static bool IsPlayerDead
     {
-        get { return isPlayerDead; }
+        get {
+            if (state == GameState.Death)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    public static GameState State
+    {
+        get
+        {
+            return state;
+        }
     }
 
     public static bool IsQuitting;
@@ -109,25 +155,34 @@ public class ControllerGame : MonoBehaviour {
     //Most Mobs check IsPaused in Update.
     private void UpdateGameSpeed()
     {
+        
         if (Input.GetButtonDown("Pause"))
         {
-            isPaused = !IsPaused;
-            Debug.Log("Pause Toggle");
-            ControllerUI.Pause(isPaused);
+            switch (state)
+            {
+                case GameState.Play:
+                    state = GameState.Pause;
+                    break;
+                case GameState.Start:
+                case GameState.Pause:
+                    state = GameState.Play;
+                    break;
+            }
         }
 
-
-        if (IsPaused == true)
+        switch (state)
         {
-            Time.timeScale = 0;
-        }
-        else if (isPlayerDead == true)
-        {
-            Time.timeScale = .5f;
-        }
-        else
-        {
-            Time.timeScale = 1;
+            case GameState.Play:
+                Time.timeScale = 1;
+                break;
+            case GameState.Death:
+                Time.timeScale = .5f;
+                break;
+            case GameState.Pause:
+            case GameState.Start:
+            case GameState.LevelEnd:
+                Time.timeScale = 0;
+                break;
         }
     }
 
@@ -135,22 +190,23 @@ public class ControllerGame : MonoBehaviour {
 
         private void ResetValues()
     {
-        isPaused = false;
-        isPlayerDead = false;
+        state = GameState.Start;
+        buildExists = true;
         ControllerUI.ResetUI();
     }
 
     //Effects triggered when the player drops to 0 health or less.
-    public static void PlayerDead(bool state)
+    public static void PlayerDead(bool isDead)
     {
-        isPlayerDead = state;
-        ControllerUI.PlayerDeathUI(state);
+        if (isDead)
+        {
+            state = GameState.Death;
+        }
     }
 
     public void LevelExit()
     {
-        isPaused = true;
-        ControllerUI.LevelExit(true);
+        state = GameState.LevelEnd;
     }
 
     public static float DifficultySetting()
@@ -168,13 +224,27 @@ public class ControllerGame : MonoBehaviour {
             case Difficulty.Impossible:
                 return 10;
         }
-        Debug.Log("Error, invalid difficulty. Setting to 0.");
-        return 0;
+        Debug.Log("Error, invalid difficulty. Setting to Medium (3).");
+        return 3;
     }
 
+    public void UpdateDifficulty(Dropdown dropdown)
+    {
+        CurrentDifficulty = (Difficulty)dropdown.value; 
+    }
+
+    public void Play()
+    {
+        if (buildExists)
+        {
+            controllerLevelExit.GetComponent<ControllerLevelExit>().BuildExits();
+        }
+        state = GameState.Play;
+    }
+    
     public void ReloadLevel()
     {
-        ControllerGame.PlayerDead(false);
+        ControllerGame.state = GameState.Play;
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -189,4 +259,9 @@ public class ControllerGame : MonoBehaviour {
         Application.Quit();
     }
 
+    public void UpdateAudio(Slider slider)
+    {
+        audioVolume = slider.value/100;
+        audioSource.volume = audioVolume;
+    }
 }

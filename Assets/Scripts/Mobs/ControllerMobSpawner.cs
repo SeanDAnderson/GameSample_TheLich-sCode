@@ -127,6 +127,7 @@ public class ControllerMobSpawner : MonoBehaviour, IVulnerable, ISpeedMod {
     [SerializeField] protected float spawnTimer = 0f;
     [SerializeField][Range(1,100)] protected float spawnSpeed = 50f;
     [SerializeField] protected bool canSpawn;
+    [SerializeField] protected float minimumSpawns = 20;
 
     //Rendering
     private SpriteRenderer spriteRenderer;
@@ -138,7 +139,7 @@ public class ControllerMobSpawner : MonoBehaviour, IVulnerable, ISpeedMod {
     //Any variables that may have to be reinitialized during play are separated into a private InitializeValues() method.
     void Start () {
 
-        health = healthMax * ControllerGame.DifficultySetting();
+        health = healthMax;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         isolationSpriteRenderer = isolationTransform.GetComponent<SpriteRenderer>();
@@ -249,7 +250,8 @@ public class ControllerMobSpawner : MonoBehaviour, IVulnerable, ISpeedMod {
             if (spawnTimer <= 0)
             {
                 spawnTimer = 1;
-                ControllerMob.AddSeeker(spawn, gameObject);
+                ControllerMob.AddSeeker(spawn, gameObject, minimumSpawns);
+                minimumSpawns--;
             }
         }
 

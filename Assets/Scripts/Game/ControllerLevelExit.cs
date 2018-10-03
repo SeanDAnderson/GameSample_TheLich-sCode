@@ -10,12 +10,14 @@ public class ControllerLevelExit : MonoBehaviour {
     #region
     private ControllerGame gameController;
     [SerializeField] protected GameObject[] exitPoints;
+    private GameObject[] exitPointsRemaining;
     [SerializeField] protected GameObject exitPoint;
     #endregion
 
     //Attempts to get the GameController if no game controller is assigned.
-    private void Start()
+    public void BuildExits()
     {
+        exitPointsRemaining = exitPoints;
         if (gameController == null)
         {
             gameController = ControllerGame.GetGameController;
@@ -62,15 +64,16 @@ public class ControllerLevelExit : MonoBehaviour {
 
     private void ActivateSome()
     {
+
         for (int i = 0; i < exitPoints.Length/2; i++)
         {
             int rand = Random.Range(0, exitPoints.Length-1);
-            Instantiate(exitPoint, exitPoints[rand].transform.position, exitPoints[rand].transform.rotation);
-            if (exitPoints[rand + 1] != null)
-                exitPoints[rand] = exitPoints[rand + 1];
+            Instantiate(exitPoint, exitPointsRemaining[rand].transform.position, exitPointsRemaining[rand].transform.rotation);
+            if (exitPointsRemaining[rand + 1] != null)
+                exitPointsRemaining[rand] = exitPointsRemaining[rand + 1];
             else
             {
-                exitPoints[rand] = exitPoints[rand - 1];
+                exitPointsRemaining[rand] = exitPointsRemaining[rand - 1];
             }
         }
     }
