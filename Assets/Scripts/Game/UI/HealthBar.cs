@@ -9,31 +9,20 @@ public class HealthBar : MonoBehaviour {
 
     //Declarations & Initializations
     #region
-    private Text Healthbar;
-    private float health;
-    private string healthString;
+    [SerializeField] protected Slider healthbar;
+    private float healthMax;
     #endregion
 
     //Getting the Text that the script is running on.
-    private void OnEnable()
+    private void Start()
     {
-        Healthbar = gameObject.GetComponent<Text>(); 
+        healthbar.maxValue = ControllerPlayer.PlayerHealth;
+        healthbar.value = ControllerPlayer.PlayerHealth;
     }
 
-    //UPDATE
-    //Checks to see if the player's health has changed. If it has, it rebuilds the string and assigns it to the UI text.
-    void Update () {
-		if (health != ControllerPlayer.PlayerHealth)
-        {
-            health = ControllerPlayer.PlayerHealth;
-            healthString = "HEALTH: ";
+    private void FixedUpdate()
+    {
+        healthbar.value = ControllerPlayer.PlayerHealth;
+    }
 
-            for (float i = health; i>0; i--)
-            {
-                healthString = healthString + "[] ";
-            }
-
-            Healthbar.text = healthString;
-        }
-	}
 }

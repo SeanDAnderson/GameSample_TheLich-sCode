@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224601795985331392}
   - component: {fileID: 114919171417438260}
+  - component: {fileID: 114549068586558368}
   m_Layer: 5
   m_Name: AudioSlider
   m_TagString: Untagged
@@ -239,6 +240,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114549068586558368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1117179514946526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5872348e36ad82a44a580f93777ba341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114919171417438260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -279,18 +291,18 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224211236725610814}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
-  m_Value: 50
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: UpdateAudio
-        m_Mode: 2
+      - m_Target: {fileID: 114549068586558368}
+        m_MethodName: UpdateVolume
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 114919171417438260}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -339,8 +351,8 @@ RectTransform:
   m_Father: {fileID: 224792295927737102}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -381,7 +393,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0.75}
   m_AnchorMax: {x: 0.25, y: 0.75}
-  m_AnchoredPosition: {x: 0, y: -523}
+  m_AnchoredPosition: {x: -162, y: -69.99992}
   m_SizeDelta: {x: 614.1, y: 54.700012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224671625262831042
@@ -436,7 +448,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

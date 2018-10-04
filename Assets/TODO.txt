@@ -1,22 +1,29 @@
 TO DO on The Lich's Code
 
 PRIORITY
-Add Attack & Death sounds
-Finish East Level
+Clean Up Documentation
+Push To GitHub
+
+
 
 NOMINAL
-UI Improvement
+Add Kill Counter
 
 IF TIME
-Slight Slide Toward Edges
-Volume Control UI Does Not Synch (each slider starts at 50)
+Fix Slight Slide Toward Edges
+Fix 'head bumping' slowdown when levitating under a block (thought it was fixed, but no)
 
 COMPLETED
 Increase Spawner Limit (! add a per-spawner minimum to avoid 'empty on activation' spawners)
-Fix 'head bumping' slowdown when levitating under a block
+UI Improvement
 Correct Death Emission for Spawners (uses Seeker color/size)
 Pause on Victory unpauses (the toggle doesn't check for pause)
 Injured Arm Color
+Finish East Level
+Add Attack & Death sounds
+Add Audio Controller
+Volume Control UI Does Not Synch (each slider starts at 50)
 
-Discarded
+DISCARDED
 Rewrite Difficulty code to allow in-game changing. (Requires Pause System rewrite, not worth it for small feature).
+Restrict Mouse Cursor to Game Screen (Minor out-clicking is less troublesome than 'getting stuck' in the game window)

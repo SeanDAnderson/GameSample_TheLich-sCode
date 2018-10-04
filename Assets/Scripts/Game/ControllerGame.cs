@@ -27,13 +27,7 @@ public class ControllerGame : MonoBehaviour {
 
     [Header("Options")]
     [SerializeField] protected AudioSource audioSource;
-    [SerializeField] protected bool audioEnabled = true;
-    [SerializeField] [Range(0, 1)] protected float audioVolume = .5f;
-    [SerializeField] protected bool musiceEnabled = true;
-    [SerializeField] [Range(0, 1)] protected float musicVolume = 1f;
-    [SerializeField] protected bool soundFXEnabled = true;
-    [SerializeField] [Range(0, 1)] protected float soundFXVolume = 1f;
-
+    
 
     public static bool IsPaused
     {
@@ -119,6 +113,8 @@ public class ControllerGame : MonoBehaviour {
         ControllerUI.InitializeUI(uiMainMenu, uiLevel, uiPause, uiDeath, uiVictory);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        InitializeAudio();
     }
 
     private void Start()
@@ -130,10 +126,6 @@ public class ControllerGame : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(11, 11);
         //Ghosts & Ground
         Physics2D.IgnoreLayerCollision(9, 13);
-
-
-
-
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -244,8 +236,6 @@ public class ControllerGame : MonoBehaviour {
     
     public void ReloadLevel()
     {
-        ControllerGame.state = GameState.Play;
-        Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -259,9 +249,8 @@ public class ControllerGame : MonoBehaviour {
         Application.Quit();
     }
 
-    public void UpdateAudio(Slider slider)
+    public void InitializeAudio()
     {
-        audioVolume = slider.value/100;
-        audioSource.volume = audioVolume;
+        ControllerAudio.SetMusicSource(audioSource);
     }
 }

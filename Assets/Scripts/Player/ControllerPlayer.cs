@@ -168,22 +168,21 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
     //This method is only single-player friendly
     public static Vector2 PlayerLocation = Vector2.zero;
     public static float PlayerHealth { get; set; }
-    
-    
 
-    
+
+
     #endregion
 
-    //Start contains all of the initializations for PlayerController.
+    //OnEnable contains all of the initializations for PlayerController.
     //Any initializations that are reset upon death are in InitializeValues();
-    //Any initializations that are Start only, are in the start function itself.
-    void Start () {
+    //Any initializations that are OnEnable only, are in the function itself.
+  
+
+    void OnEnable () {
         body2D = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         capsule = GetComponent<CapsuleCollider2D>();
         InitalizeValues();
-
-        
     }
 	
 	//Update functionality is broken up into smaller methods
@@ -257,6 +256,8 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
         {
             ControllerGame.PlayerDead(isDead);
             sprite.enabled = false;
+            GetComponent<CapsuleCollider2D>().enabled = false;
+            GetComponent<PolygonCollider2D>().enabled = false;
             if (deathEmission != null)
             {
                 Instantiate(deathEmission, transform.position, transform.rotation);
@@ -493,7 +494,8 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
     public void Kill()
     {
         if (!isInvulnerable){ 
-        isDead = true;
+            isDead = true;
+            health = 0;
         }
     }
 
