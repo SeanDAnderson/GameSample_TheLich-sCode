@@ -415,13 +415,13 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
             }
         }
         //Slow Missile
-        //Speed 5
+        //Speed 2
         else if ((ControllerInput.MouseRightHold) && (shootTimer <= 0))
         {
             if (shootTimer <= 0)
             {
                 Instantiate(slowBullet, firePoint.position, firePoint.rotation);
-                shootTimer = 5 / rateOfFire;
+                shootTimer = 2 / rateOfFire;
             }
         }
         //Timer countdown.

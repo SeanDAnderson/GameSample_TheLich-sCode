@@ -108,7 +108,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: a438b1f2d17a8e341b61ebe5776b2944, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 2.5
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -151,7 +151,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.509
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2f2dc4313e18845870087c52716bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeMod: 0.6
+  volumeMod: 1
 --- !u!212 &212674667820325810
 SpriteRenderer:
   m_ObjectHideFlags: 1
