@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//The ISpeedMod is used to allow generic speed/movement functionality on mobs.
+//Any mob with the interface can have it's speed characteristics manipulated, other mobs are ignored.
+//Generic ISpeedMod implementations are described below, bespoke implementations are described in the mob's Controller class.
+//Speed implementations can vary wildly and are not always associated with movement.
 public interface ISpeedMod{
 
     //General Speed Modificaton Mechanic

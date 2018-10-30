@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//SEEKING UTILITIES
+//Tools for any target seeking mobile mob.
 public static class SeekingUtilities {
-    //SEEKING UTILITIES
-    //Tools for any target seeking mobile mob.
-
-
+    
     //CalculateVelocity
     //Calculates a Vector2 velocity to move from the mobs location to the target location at speed.
     public static Vector2 CalculateVelocity(GameObject mob, Vector2 target, float speed)

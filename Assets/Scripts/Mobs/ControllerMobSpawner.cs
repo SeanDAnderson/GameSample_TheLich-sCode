@@ -12,9 +12,7 @@ public class ControllerMobSpawner : MonoBehaviour, IVulnerable, ISpeedMod {
 
     //DECLARATIONS & INITIALIZATIONS
     #region
-        //TESTING
-    private bool isActive = false;
-
+    
     [Header("Health & Damage")]
     [SerializeField] protected float health = 10;
     [SerializeField] protected float healthMax = 10;
@@ -27,6 +25,7 @@ public class ControllerMobSpawner : MonoBehaviour, IVulnerable, ISpeedMod {
     [SerializeField] protected float isolationTimerMax = 10f;
     [SerializeField] protected GameObject deathEmission;
     private float isolationTimer;
+    private bool isActive = false;
 
     //IVulnerable Properties
     public float Health
@@ -137,15 +136,15 @@ public class ControllerMobSpawner : MonoBehaviour, IVulnerable, ISpeedMod {
 
 
     //Any variables that may have to be reinitialized during play are separated into a private InitializeValues() method.
+    //All runtime values are assigned here.
     void Start () {
 
         health = healthMax;
-
         spriteRenderer = GetComponent<SpriteRenderer>();
         isolationSpriteRenderer = isolationTransform.GetComponent<SpriteRenderer>();
         isolationSpriteRenderer.enabled = false;
 
-        //Destroys itself if there is nothing to spawn.
+        //Destroys itself if there is nothing to spawn. Prevents useless floating bugs in case of an error.
         if (spawn == null)
         {
             Destroy(gameObject);
@@ -164,28 +163,14 @@ public class ControllerMobSpawner : MonoBehaviour, IVulnerable, ISpeedMod {
 
         if ((isActive) && (!ControllerGame.IsPaused))
         {
-
-            
-
             if (isIsolated == false)
             {
                 UpdateRotation();
-
                 UpdateSpawn();
-
-                //UpdateAttack();
             }
         }
         
 	}
-
-    //Attack TODO
-    //WILL Fire projectiles based on the Spawner Bug's current facing based on it's speed.
-    private void UpdateAttack()
-    {
-        //Attack on timer cooldown
-    }
-
 
     //UpdateIsolation
     //Checks the current isIsolated state, tracks the isolationTimer and updates the isIsolated state using IsolationToggle when needed. 
@@ -215,9 +200,6 @@ public class ControllerMobSpawner : MonoBehaviour, IVulnerable, ISpeedMod {
         {
             IsolattionToggle(false);
         }
-
-        //REMOVED Speed Regeneration. It was invisible to the player and just complicated the mechanics without noticable benefit.
-      
     }
 
     //UpdateRotation

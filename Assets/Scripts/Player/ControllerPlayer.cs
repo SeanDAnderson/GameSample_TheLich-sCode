@@ -176,8 +176,6 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
     //OnEnable contains all of the initializations for PlayerController.
     //Any initializations that are reset upon death are in InitializeValues();
     //Any initializations that are OnEnable only, are in the function itself.
-  
-
     void OnEnable () {
         body2D = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -252,6 +250,9 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
             
         }
 
+        //Only updates the ControllerGame if it needs to.
+        //Then sets the player sprite to invisible and turns off its colliders so that game objects do not keep interacting
+        //with the invisible, dead player. Then plays the death event. 
         if ((isDead) && (ControllerGame.IsPlayerDead != true))
         {
             ControllerGame.PlayerDead(isDead);
@@ -263,7 +264,7 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
                 Instantiate(deathEmission, transform.position, transform.rotation);
             }
         }
-
+        //Seperately makes sure that the player's velocity does not increase above zero while dead.
         if (isDead)
         {
             body2D.velocity = Vector2.zero;
@@ -474,12 +475,17 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
     #endregion
 
     //IVulnerable functions
+    //See IVulnerable interface class for details on generic functionality
     #region
+    //Default Heal implementation
     public void Heal(float amount)
     {
         DamageUtilities.Heal(this, amount);
     }
 
+    //Bespoke Injure functionality
+    //Checks that the player is neither invulnerable nor recently injured before applying damage and updating the sprite.
+    //A coroutine is used to reset the player to the default, injurable state using InjuryReset() below.
     public void Injure(float amount)
     {
         if ((!isInvulnerable) && (!wasInjured))
@@ -491,6 +497,7 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
         }
     }
 
+    //Default Kill functionality
     public void Kill()
     {
         if (!isInvulnerable){ 
@@ -499,6 +506,7 @@ public class ControllerPlayer : MonoBehaviour, IVulnerable, ISpeedMod {
         }
     }
 
+    //Used by StartCoroutine in the Injure method to reset the state of the player to default.
     IEnumerator InjuryReset()
     {
         yield return new WaitForSeconds(.5f);

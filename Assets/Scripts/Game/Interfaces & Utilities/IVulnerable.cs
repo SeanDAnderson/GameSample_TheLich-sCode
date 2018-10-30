@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//The IVulnerable interface is used to allow generic health, damage, and destruction interactions on mobs.
+//Any mob with the interface can be affected by the required methods, other mobs are ignored.
+//All generic implimentations are described here, bespoke implementations are detailed in the mob's Controller class.
 public interface IVulnerable{
 
     //General Healing Mechanic

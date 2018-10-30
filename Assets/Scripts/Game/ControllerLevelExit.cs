@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//LEVEL EXIT
-//Triggers the LevelExit method in GameController when the player enters the collider.
+//Generates the level exits randomly depenending on the game difficulty.
+//At the easiest difficulties (VeryEasy, Easy) all exits are open.
+//At the intermediate difficulty (Medium) half of the exits, rounding up, are open.
+//At the highest difficulties (Hard, Impossible) only one exit is open.
+//The possible level exits are empty game objects stored in an array in the Unity Editor.
+//The Controller creates the LevelExit objects at the transform positions of those objects.
 public class ControllerLevelExit : MonoBehaviour {
 
     //Declarations & Initializations
@@ -44,16 +48,15 @@ public class ControllerLevelExit : MonoBehaviour {
 
             
         }
+        //If the array of exits is empty a generic exit is opened.
         else
         {
             exitPoint = gameObject;
         }
-
-        
     }
 
     
-
+    //Creates a LevelExit object at every possible exit point.
     private void ActivateAll()
     {
         for ( int i = 0; i < exitPoints.Length; i++ )
@@ -62,6 +65,7 @@ public class ControllerLevelExit : MonoBehaviour {
         }
     }
 
+    //Creates a LevelExit object and half of the possible exit points, rounded up.
     private void ActivateSome()
     {
 
@@ -78,6 +82,7 @@ public class ControllerLevelExit : MonoBehaviour {
         }
     }
 
+    //Creates a single LevelExit at one of the possible exit points.
     private void ActivateOne()
     {
         int rand = Random.Range(0, exitPoints.Length - 1);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 //PLAYER ARM CONTROLLER
 //Used to manage the rotation and sprite of the Player Avatar's Attack Arm.
-//The arm aims in an arch generally (but not exactly) toward the mouse cursor. This is to avoid the visual weirdness of a 'turret arm'.
+//The arm aims in an arch generally (but not exactly) toward the mouse cursor. This is to avoid the visual weirdness of a 'turret arm'
 //and match the other limited animation sprites.
 public class ControllerPlayerArm : MonoBehaviour {
 
@@ -41,12 +41,14 @@ public class ControllerPlayerArm : MonoBehaviour {
 
     }
 	
+    //Unity Update
+    //Update functionality broken into individual methods for readability
+    //See individual methods for details
 	void Update () {
 
+        //Only updates if the game is not current paused
         if (ControllerGame.IsPaused == false) {
-
             UpdateLocation();
-
             UpdateRotation();
         }
     }
@@ -72,6 +74,9 @@ public class ControllerPlayerArm : MonoBehaviour {
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(Mathf.Atan2(relativeMousePosition.y, relativeMousePosition.x) * Mathf.Rad2Deg + 90, Vector3.forward), rotationSpeed);
 
+        //SPRITE STATE UPDATES
+        #region
+        //Enabling/Disabling arm sprite to match parent sprite
         if (parentSpriteRenderer.enabled == false)
         {
             spriteRenderer.enabled = false;
@@ -81,6 +86,7 @@ public class ControllerPlayerArm : MonoBehaviour {
             spriteRenderer.enabled = true;
         }
 
+        //Flipping arm sprite to match parent sprite
         if (parentSpriteRenderer.flipX == true)
         {
             spriteRenderer.flipX = true;
@@ -89,13 +95,13 @@ public class ControllerPlayerArm : MonoBehaviour {
         {
             spriteRenderer.flipX = false;
         }
-
+        #endregion
 
         //SPRITE SELECTOR 
         //Uses descrete angles to avoid the strange appearence of a 'turret arm'. 
         //Selects the sprite and angle based upon the flipX status and current angle.
         #region
-        
+
         float armAngle = 0;
 
         //IF the mouse curser is within one space of the shoulder on the X-Axis (in the same Column as the PC)

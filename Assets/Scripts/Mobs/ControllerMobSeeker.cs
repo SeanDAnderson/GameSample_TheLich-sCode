@@ -139,7 +139,7 @@ public class ControllerMobSeeker : MonoBehaviour, IVulnerable, ISpeedMod
         body2D = GetComponent<Rigidbody2D>();
     }
 
-    //Used to track the number of Seekers in play
+    //Used by ControllerMob to track the number of Seekers in play
     private void OnDestroy()
     {
         ControllerMob.RemoveSeeker();

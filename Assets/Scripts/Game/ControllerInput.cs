@@ -6,11 +6,7 @@ using UnityEngine;
 //Handles all input managment
 //Primarily supports the ControllerPlayer and ControllerGame classes
 //Standard Unity Input is not used directly because of the number of values that have to be converted or can be altered.
-//I.e. The need for world mouse position instead of screen position and Y axis being used for jumping.
-//
-//JUMPING
-//The Player can jump with either the Jump key (defaults to SPACEBAR) or 'UP' on the Y Axis (W, UPARROW, or Gamepad UP)
-//Checks for both clicking and holding the button.
+//I.e. The need for world mouse position instead of screen position.
 public static class ControllerInput {
 
     //Declarations & Initializations
@@ -59,6 +55,7 @@ public static class ControllerInput {
             JumpHold = false;
         }
 
+        //Used primarily to capture screenshots during testing.
         if (Input.GetKeyDown(KeyCode.SysReq))
         {
             Debug.Log("Attempting screenshot.");

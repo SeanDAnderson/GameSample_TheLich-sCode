@@ -5,16 +5,17 @@ using UnityEngine;
 public class TESTBugSpawn : MonoBehaviour {
 
     // For creating a Mob Spawner in testing. NOT a normal game spawner (does not check for spawn caps).
+    //Only usable in a debug enabled build, not in a live build
 
 #if DEBUG
+    //Declarations & Initializations
+    #region
     [SerializeField] GameObject prefab;
     [SerializeField] private float spawnTime = .5f;
     private float timer;
+    #endregion
 
-
-
-	
-	void Start () {
+    void Start () {
         timer = 0;
 	}
 	

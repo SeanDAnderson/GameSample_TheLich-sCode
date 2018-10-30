@@ -90,6 +90,8 @@ public class ControllerGame : MonoBehaviour {
 
     #endregion
 
+    //Singleton pattern
+    //Ensuring only a single controller exists.
     void Awake()
     {
         if (!est)
@@ -103,7 +105,7 @@ public class ControllerGame : MonoBehaviour {
         }
     }
     
-
+    //If this is the first and only controller, the following runtime assignments are made.
     void OnEnable()
     {
         CurrentDifficulty = difficulty;
@@ -117,6 +119,7 @@ public class ControllerGame : MonoBehaviour {
         InitializeAudio();
     }
 
+    //These assignments are less time sensitive and handles at the Start cycle.
     private void Start()
     {
         //Collision Igores
@@ -128,12 +131,15 @@ public class ControllerGame : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(9, 13);
     }
 
+    //Resets all values to their level defaults when a new scene (i.e. game level) is loaded.
+    //Because the current game contains only a single scene, this is used to reload after victory or death.
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         levelCurrent = scene.buildIndex;
         ResetValues();
     }
 
+    //The Update functions are called every game cycle. They are broken into seperate methods for readability.
     void Update () {
         UpdateGameSpeed();
         ControllerInput.UpdateInput();
@@ -147,7 +153,8 @@ public class ControllerGame : MonoBehaviour {
     //Most Mobs check IsPaused in Update.
     private void UpdateGameSpeed()
     {
-        
+        //Determining if the game should be paused when the Pause button is pressed.
+        //Only a press triggers this, holding or lifiting the button do nothing.
         if (Input.GetButtonDown("Pause"))
         {
             switch (state)
@@ -162,6 +169,7 @@ public class ControllerGame : MonoBehaviour {
             }
         }
 
+        //Setting TimeScale based on game state. All physics operations are controlled by the TimeScale.
         switch (state)
         {
             case GameState.Play:
@@ -179,8 +187,7 @@ public class ControllerGame : MonoBehaviour {
     }
 
     //Resets Per Level Values to Default
-
-        private void ResetValues()
+    private void ResetValues()
     {
         state = GameState.Start;
         buildExists = true;
@@ -195,12 +202,14 @@ public class ControllerGame : MonoBehaviour {
             state = GameState.Death;
         }
     }
-
+    
+    //Called to set the state to LevelEnd
     public void LevelExit()
     {
         state = GameState.LevelEnd;
     }
 
+    //Returns a float value for the current difficulty setting for difficulty-dependent calculations.
     public static float DifficultySetting()
     {
         switch (CurrentDifficulty)
@@ -220,11 +229,15 @@ public class ControllerGame : MonoBehaviour {
         return 3;
     }
 
+    //Updates the game difficulty.
+    //Called by a Dropdown Menu in the UI.
     public void UpdateDifficulty(Dropdown dropdown)
     {
         CurrentDifficulty = (Difficulty)dropdown.value; 
     }
 
+    //Sets the game mode to play. 
+    //Checks if the Exits have been built for the level, and builds them if they have not.
     public void Play()
     {
         if (buildExists)
@@ -234,21 +247,27 @@ public class ControllerGame : MonoBehaviour {
         state = GameState.Play;
     }
     
+    //Reloads teh current level
     public void ReloadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    //Loats a designated level (Not currently used as the game ended with a single level).
     public void LoadLevel(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
     }
 
+    //Exits the game.
+    //Included in the controller to ensure that no components can call the quit directly in case other
+    //opertaions need to be performed.
     public void QuitGame()
     {
         Application.Quit();
     }
 
+    //Initializes the Audio Controller and connects it with the music audio source.
     public void InitializeAudio()
     {
         ControllerAudio.SetMusicSource(audioSource);

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//The UI Controller class
+//Manages all of the UI elements within the game.
+//Primarily called by the ControllerGame class.
 public static class ControllerUI {
-
-    //WARNING: UI is still very much under construction
-
-    //Initializations
+    
+    //Declarations & Initializations
     #region
     //UI Text Objects
     private static Canvas CanvasStart;
@@ -40,8 +41,10 @@ public static class ControllerUI {
 	
 	// Update is called once per frame
 	public static void UpdateUI () {
+        //Called by ControllerGame to ensure that the game UI matches the current game state.
         if (uiState != ControllerGame.State)
         {
+            //Sets a generic UI state before toggling specific elements.
             CanvasPause.gameObject.SetActive(false);
             CanvasDeath.gameObject.SetActive(false);
             CanvasLevel.gameObject.SetActive(true);
@@ -68,7 +71,7 @@ public static class ControllerUI {
         }
     }
 
-
+    //Called by ControllerGame to restore the UI to it's default initial state.
     public static void ResetUI()
     {
         CanvasPause.gameObject.SetActive(false);
@@ -78,27 +81,6 @@ public static class ControllerUI {
         CanvasLevelEnd.gameObject.SetActive(false);
     }
     
-    //Canvas Methods DEPRECATED
-    /*
-    public static void LevelExit(bool state)
-    {
-        CanvasLevelEnd.gameObject.SetActive(state);
-    }
-
-    public static void LevelStart(bool state)
-    {
-        CanvasPause.gameObject.SetActive(state);
-    }
-
-    public static void PlayerDeathUI(bool state)
-    {
-        CanvasDeath.gameObject.SetActive(state);
-    }
-
-    public static void Pause(bool state)
-    {
-        CanvasPause.gameObject.SetActive(state);
-    }*/
 
    
 

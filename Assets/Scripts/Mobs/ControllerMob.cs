@@ -30,6 +30,7 @@ public class ControllerMob : MonoBehaviour {
     //Spawners are not intended to be spawned automatically so there is no counting mechanism for them
     #endregion
 
+    //Runtime assignments
     private void Awake()
     {
         ActivationRange = activationRange;
@@ -71,9 +72,11 @@ public class ControllerMob : MonoBehaviour {
         CurrentSeekers--;
     }
 
+    //Checks if the object is within activation range of the player.
+    //Used to prevent costly caluclations and spawning by mobs too far away from the player to contribute to gameplay (i.e. off the screen in most cases). 
     public static bool ActivationCheck(GameObject bug)
     {
-
+        //Checks the distance on both the X and Y axes. Only activates if the player is withing range on both.
         if ((ControllerPlayer.PlayerLocation.x > (bug.transform.position.x - ActivationRange)) && (ControllerPlayer.PlayerLocation.x < (bug.transform.position.x + ActivationRange)) &&
             (ControllerPlayer.PlayerLocation.y > (bug.transform.position.y - ActivationRange)) && (ControllerPlayer.PlayerLocation.y < (bug.transform.position.y + ActivationRange)))
         {

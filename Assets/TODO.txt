@@ -1,17 +1,16 @@
 TO DO on The Lich's Code
 
+Development on The Lich's Code has ceased, Malediction Games (still just me at the moment) is working on its next major project. 
+
 PRIORITY
-Clean Up Documentation
-Push To GitHub
-
-
+<none>
 
 NOMINAL
-Add Kill Counter
+<none>
 
 IF TIME
-Fix Slight Slide Toward Edges
-Fix 'head bumping' slowdown when levitating under a block (thought it was fixed, but no)
+<none>
+
 
 COMPLETED
 Increase Spawner Limit (! add a per-spawner minimum to avoid 'empty on activation' spawners)
@@ -23,7 +22,10 @@ Finish East Level
 Add Attack & Death sounds
 Add Audio Controller
 Volume Control UI Does Not Synch (each slider starts at 50)
+Clean Up Documentation (Doing final documentation pass now)
+Push To GitHub (If this is in the Completed section, and you can read it, clearly I did this)
 
 DISCARDED
 Rewrite Difficulty code to allow in-game changing. (Requires Pause System rewrite, not worth it for small feature).
 Restrict Mouse Cursor to Game Screen (Minor out-clicking is less troublesome than 'getting stuck' in the game window)
+Add Kill Counter, Fix Slight Slide Toward Edges, & Fix 'head bumping' slowdown when levitating under a block (Moving on to a non-free project has taken priority)

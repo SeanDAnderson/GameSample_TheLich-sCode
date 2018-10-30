@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //HEALTH BAR
-//Creates and updates a string to show the Player's current health in the Level UI.
+//Updates a slider to show the Player's current health in the Level UI.
 public class HealthBar : MonoBehaviour {
 
     //Declarations & Initializations
@@ -20,6 +20,8 @@ public class HealthBar : MonoBehaviour {
         healthbar.value = ControllerPlayer.PlayerHealth;
     }
 
+    //Only updates teh value during physics (fixed) updates becasue objects only move during physics updates
+    //so the value should not change at other times.
     private void FixedUpdate()
     {
         healthbar.value = ControllerPlayer.PlayerHealth;

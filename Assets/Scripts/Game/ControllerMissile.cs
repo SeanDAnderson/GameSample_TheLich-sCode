@@ -31,7 +31,6 @@ public class ControllerMissile : MonoBehaviour {
     [SerializeField] protected Vector2 missileVelocity = Vector2.zero;
     #endregion
 
-
     //Runtime Initializations
     //Largely based on specific missile conditionals.
     private void OnEnable()

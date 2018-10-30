@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 58423396165584440}
   - component: {fileID: 82249303531366474}
   - component: {fileID: 114318254918298302}
+  - component: {fileID: 60908962115613494}
   m_Layer: 11
   m_Name: magicBullet
   m_TagString: Untagged
@@ -39,13 +40,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1382663010681928}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.515, y: -4.492, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.20030847, w: 0.97973293}
+  m_LocalPosition: {x: 6.846592, y: 0.10918546, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -23.11}
 --- !u!50 &50520812981330954
 Rigidbody2D:
   serializedVersion: 4
@@ -87,7 +88,7 @@ CircleCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1382663010681928}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -96,6 +97,38 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.45
+--- !u!60 &60908962115613494
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1382663010681928}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.5}
+      - {x: 0.35, y: 0.35}
+      - {x: 0.5, y: 0}
+      - {x: 0.35, y: -0.35}
+      - {x: 0, y: -0.5}
+      - {x: -0.35, y: -0.35}
+      - {x: -0.5, y: 0}
+      - {x: -0.35, y: 0.35}
 --- !u!82 &82249303531366474
 AudioSource:
   m_ObjectHideFlags: 1

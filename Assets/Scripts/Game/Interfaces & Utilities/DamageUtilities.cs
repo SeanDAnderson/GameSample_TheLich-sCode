@@ -4,6 +4,7 @@ using UnityEngine;
 
 //DAMAGE UTILITIES
 //Provides most common functionality for the IVulnerable and ISpeedMod interface methods.
+//See the interface classes for more details on these generic implimentations. 
 public static class DamageUtilities {
 
     //IVulnerable Functions

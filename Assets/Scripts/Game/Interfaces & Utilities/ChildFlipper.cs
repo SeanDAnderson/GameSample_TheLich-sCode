@@ -27,6 +27,7 @@ public class ChildFlipper : MonoBehaviour {
 
     }
 
+    //Updates flip values each cycle to make sure the sprite matches the parent.
     void Update () {
         spriteRenderer.flipX = parentSpriteRenderer.flipX;
         spriteRenderer.flipY = parentSpriteRenderer.flipY;
